@@ -1,0 +1,15 @@
+{% extends "pointage/core.html" %}
+
+{% block content %}
+<div class="container">
+<br/>
+<br/>
+<br/>
+<br/>
+<h1 class="mt-5">Dresser une liste contamination</h1>
+    <p class="lead">Sélectionnez la personne contaminée</p>
+    {% for personne in personnes %}
+        <a class="btn btn-info my-1" href="{{ personne.id }}/conta">{{ personne.last_name }} {{ personne.first_name }}</a>
+    {% endfor %}
+  </div>
+{% endblock %}

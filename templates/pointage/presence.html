@@ -1,0 +1,66 @@
+{% extends "pointage/core.html" %}
+
+{% block content %}
+<div class="container">
+<br/>
+<br/>
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error}}
+        </div>
+    {% endif %}
+<br/>
+<br/>
+{% if success %}
+        <div class="alert alert-success" role="alert">
+            {{ success}}
+        </div>
+    {% endif %}
+
+    <h1 class="mt-5">Personnes présentes dans la salle</h1>
+ <p class="lead">Cliquez sur votre nom pour noter votre sortie</p>
+    <div class="container">
+  <div class="row">
+    <div class="col-sm border-right">
+    <h2>Atelier:</h2>
+        {% for personne in In %}
+            {% if personne.salle == "A" %}
+            <a class="btn btn-{{ personne.User.asso.color }} my-1" href="{{ personne.User.id }}/exit">{{ personne.User.last_name }} {{ personne.User.first_name }} ({{ personne.salle }})</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col-sm border-right">
+    <h2>Bureau d'étude:</h2>
+      {% for personne in In %}
+            {% if personne.salle == "B" %}
+            <a class="btn btn-{{ personne.User.asso.color }} my-1" href="{{ personne.User.id }}/exit">{{ personne.User.last_name }} {{ personne.User.first_name }} ({{ personne.salle }})</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col-sm">
+    <h2>Découpe laser:</h2>
+      {% for personne in In %}
+            {% if personne.salle == "D" %}
+            <a class="btn btn-{{ personne.User.asso.color }} my-1" href="{{ personne.User.id }}/exit">{{ personne.User.last_name }} {{ personne.User.first_name }} ({{ personne.salle }})</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+</div>
+
+<br/>
+<br/><br/>
+<br/>
+    <h1 class="mt-5">Personnes hors de la salle</h1>
+    <p class="lead">Cliquez sur votre nom pour noter votre présence</p>
+
+    {% for personne in Out %}
+        <a class="btn btn-warning my-1" href="{{ personne.id }}/entry">{{ personne.last_name }} {{ personne.first_name }}</a>
+    {% endfor %}
+    <br/>
+    <br/>
+        <a class="btn btn-info my-1" href="nextpassage">Consulter le calendrier / Réserver un créneau</a>
+
+  </div>
+
+{% endblock %}

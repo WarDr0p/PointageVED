@@ -1,0 +1,17 @@
+{% extends "pointage/core.html" %}
+
+{% block content %}
+<div class="container">
+<br/>
+<br/>
+<br/>
+<br/>
+<h1 class="mt-5">{{ personne.first_name }} {{ personne.last_name }} a été en contact avec :</h1>
+    <p class="lead">Attention format de date américain (YYYY/MM/DD)<br/>Attention cette page n'affiche que les personnes en contact dans la même salle (Bureau d'étude, Découpe Laser ou Atelier)</p>
+    {% for entree in personnes %}
+        <div class="alert alert-danger" role="alert">
+              {{ entree.User.first_name }} {{ entree.User.last_name }} le {{ entree.entree|truncatechars:12}}
+        </div>
+    {% endfor %}
+  </div>
+{% endblock %}

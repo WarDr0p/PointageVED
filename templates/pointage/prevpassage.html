@@ -1,0 +1,64 @@
+{% extends "pointage/core.html" %}
+
+{% block content %}
+<div class="container">
+<br/>
+<br/>
+<br/>
+<br/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <!-- XDSoft DateTimePicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+<form method="post">
+    {% csrf_token %}
+     <!-- jQuery -->
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error}}
+        </div>
+    {% endif %}
+{% if success %}
+        <div class="alert alert-success" role="alert">
+            {{ success}}
+        </div>
+{% endif %}
+<h1 class="mt-5">Réservations déjà enregistrées:</h1>
+{% autoescape off %}
+  {{ gant }}
+    {{ occup }}
+  {% endautoescape %}
+    <h1 class="mt-5">Réserver un créneau</h1>
+    <p class="lead">Sélectionnez la date et l'heure à laquelle vous vouler réserver votre créneau (pour sélectionner les minutes utilisez votre clavier)</p>
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+     <!-- jQuery -->
+<script>
+  $(function () {
+    $("#id_sortie").datetimepicker({
+      format: 'd/m/Y H:i',
+    });
+  });
+</script>
+<script>
+  $(function () {
+    $("#id_entree").datetimepicker({
+      format: 'd/m/Y H:i',
+    });
+  });
+</script>
+    <button class="btn btn-primary btn-lg btn-block " type="submit">Réserver</button>
+  </form>
+</div>
+{% endblock %}

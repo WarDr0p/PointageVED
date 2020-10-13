@@ -1,0 +1,36 @@
+{% extends "pointage/core.html" %}
+
+{% block content %}
+<div class="container">
+<br/>
+<br/>
+<br/>
+<br/>
+    <h1 class="mt-5">Mon compte</h1>
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error}}
+        </div>
+    {% endif %}
+<br/>
+<br/>
+{% if success %}
+        <div class="alert alert-success" role="alert">
+            {{ success}}
+        </div>
+    {% endif %}
+    <p class="lead">Bonjour {{ request.user.username }}</p>
+    <a class="btn btn-info" href="changepassword">Changer mon mot de passe</a>
+    <a class="btn btn-info" href="logout">Se déconecter</a>
+    {% if request.user.is_staff %}
+        <a class="btn btn-info" href="../admin">Accèder à l'interface d'administration</a>
+        <a class="btn btn-info" href="conta">Dresser une liste de contamination</a>
+    {% endif %}
+    <h2 class="mt-5">Annuler une réservation de créneau :</h2>
+    {% for resa in resas %}
+        <a class="btn btn-warning my-1" href="{{ resa.id }}/delete">Suprimer la réservation : {{resa}}</a>
+
+    {% endfor %}
+
+  </div>
+{% endblock %}
